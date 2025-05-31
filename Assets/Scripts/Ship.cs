@@ -18,10 +18,24 @@ public class Ship : MonoBehaviour
     public float tiltTorque = 10f;        // Q/E 눌렀을 때 회전 힘
     public float maxTiltAngle = 30f;
 
+    [Header("GameOver")]
+    public GameObject Cam_GameOver;
+    public GameObject UI_GameOver;
+    private bool isGameOver = false;
+
+
+    [Header("GameStart")]
+    public Vector3 startPos = Vector3.zero;
+
+
     private Vector3 velocity = Vector3.zero;
     private float swayTimer = 0f;
 
     private Rigidbody rb;
+    private WindSystem windSystem;
+
+    private bool isGameStart = false;
+    
 
     void Start()
     {
@@ -31,15 +45,43 @@ public class Ship : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody>();
         }
 
+        windSystem = GetComponent<WindSystem>();
+
+        Physics.gravity = new Vector3(0, -2f, 0); // 중력 크기 감소
+
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
+        if (isGameOver)
+            return;
+
         HandleWaveSway();
+
+        if (!isGameStart)
+            return;
+
+        HandleMovement();
         HandleTiltControl();
+        windSystem.WindUpdate();
+        
+        
+        
+        CheckGameover();
+    }
+
+    void CheckGameover()
+    {
+        float _nowZ = transform.rotation.z;
+        float _ZAmount = new Vector3(0, 0, _nowZ).magnitude;  
+        
+        if( _ZAmount > 0.46f)
+        {
+            StartCoroutine( GameOver() );
+        }
+
     }
 
     void HandleMovement()
@@ -89,5 +131,38 @@ public class Ship : MonoBehaviour
                 rb.AddTorque(Vector3.forward * tiltInput * tiltTorque, ForceMode.Acceleration);
             }
         }
+    }
+
+    public void GameStart()
+    {
+        isGameOver = false;
+
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
+
+        this.transform.position = startPos;
+        this.transform.eulerAngles = Vector3.zero;
+
+        UI_GameOver.SetActive(false);
+        Cam_GameOver.SetActive(false);
+        isGameStart = true;
+    }
+
+    [ContextMenu("GameOver")]
+    public IEnumerator GameOver()
+    {
+        isGameOver = true;
+
+        Cam_GameOver.SetActive(true);
+
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+
+        yield return new WaitForSeconds(2f);
+
+        
+
+
+        UI_GameOver.SetActive(true);
     }
 }
