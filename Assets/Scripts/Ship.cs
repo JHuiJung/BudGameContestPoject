@@ -25,10 +25,9 @@ public class Ship : MonoBehaviour
 
 
     [Header("GameStart")]
-    public Vector3 startPos = Vector3.zero;
+    public Vector3 startPos = Vector3.zero; 
+    public Vector3 startRot = Vector3.zero; 
 
-
-    public MeshRenderer meshRenderer;
 
     private Vector3 velocity = Vector3.zero;
     private float swayTimer = 0f;
@@ -144,7 +143,7 @@ public class Ship : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
 
         this.transform.position = startPos;
-        this.transform.eulerAngles = Vector3.zero;
+        this.transform.eulerAngles = startRot;
 
         UI_GameOver.SetActive(false);
         Cam_GameOver.SetActive(false);
