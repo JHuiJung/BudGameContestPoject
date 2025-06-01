@@ -28,6 +28,8 @@ public class Ship : MonoBehaviour
     public Vector3 startPos = Vector3.zero;
 
 
+    public MeshRenderer meshRenderer;
+
     private Vector3 velocity = Vector3.zero;
     private float swayTimer = 0f;
 
@@ -133,6 +135,7 @@ public class Ship : MonoBehaviour
         }
     }
 
+    [ContextMenu("GameStart")]
     public void GameStart()
     {
         isGameOver = false;
@@ -164,5 +167,11 @@ public class Ship : MonoBehaviour
 
 
         UI_GameOver.SetActive(true);
+    }
+
+
+    public void GameEnd()
+    {
+        isGameStart = false;
     }
 }
