@@ -21,6 +21,7 @@ public class Ship : MonoBehaviour
     [Header("GameOver")]
     public GameObject Cam_GameOver;
     public GameObject UI_GameOver;
+    //public GameObject UI_Main;
     private bool isGameOver = false;
 
 
@@ -148,6 +149,7 @@ public class Ship : MonoBehaviour
         UI_GameOver.SetActive(false);
         Cam_GameOver.SetActive(false);
         isGameStart = true;
+        //UI_Main.SetActive(true);
     }
 
     [ContextMenu("GameOver")]
@@ -156,6 +158,7 @@ public class Ship : MonoBehaviour
         isGameOver = true;
 
         Cam_GameOver.SetActive(true);
+        //UI_Main.SetActive(false);
 
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
