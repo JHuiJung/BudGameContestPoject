@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DarkTonic.MasterAudio;
+
 
 public class Ship : MonoBehaviour
 {
@@ -53,6 +55,9 @@ public class Ship : MonoBehaviour
 
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
+
+        //MasterAudio.PlaySound("water_slow 1");
+        //MasterAudio.PlaySound("Froest_1");
     }
 
     void FixedUpdate()
