@@ -7,11 +7,15 @@ public class Ending : MonoBehaviour
 {
     bool isCheck = false;
 
+    public bool isTrigger = true;
     public UnityEvent events;
 
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (!isTrigger)
+            return;
 
         if (other.tag == "Player")
         {
@@ -29,5 +33,25 @@ public class Ending : MonoBehaviour
 
         
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isTrigger)
+            return;
+
+        if (collision.gameObject.tag == "Player")
+        {
+
+            if (!isCheck)
+            {
+                isCheck = true;
+                events.Invoke();
+
+
+
+            }
+
+        }
     }
 }

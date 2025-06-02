@@ -74,7 +74,7 @@ public class Ship : MonoBehaviour
         CheckGameover();
     }
 
-    void CheckGameover()
+    public void CheckGameover()
     {
         float _nowZ = transform.rotation.z;
         float _ZAmount = new Vector3(0, 0, _nowZ).magnitude;  
@@ -92,7 +92,8 @@ public class Ship : MonoBehaviour
         float turnInput = Input.GetAxis("Horizontal");
 
         // 가속 적용
-        Vector3 forwardMovement = transform.forward * moveInput * acceleration * Time.fixedDeltaTime;
+        //Vector3 forwardMovement = transform.forward * moveInput * acceleration * Time.fixedDeltaTime;
+        Vector3 forwardMovement = transform.forward * 1f * acceleration * Time.fixedDeltaTime;
         velocity += forwardMovement;
 
         // 회전 적용
@@ -140,15 +141,23 @@ public class Ship : MonoBehaviour
     {
         isGameOver = false;
 
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
+        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX
+            | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ ;
 
         this.transform.position = startPos;
         this.transform.eulerAngles = startRot;
 
+        velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
+
+        
+
         UI_GameOver.SetActive(false);
         Cam_GameOver.SetActive(false);
         isGameStart = true;
+        
         //UI_Main.SetActive(true);
     }
 
