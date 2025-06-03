@@ -24,7 +24,7 @@ public class Ship : MonoBehaviour
     public GameObject Cam_GameOver;
     public GameObject UI_GameOver;
     //public GameObject UI_Main;
-    private bool isGameOver = false;
+    public bool isGameOver = false;
 
 
     [Header("GameStart")]
@@ -38,7 +38,7 @@ public class Ship : MonoBehaviour
     private Rigidbody rb;
     private WindSystem windSystem;
 
-    private bool isGameStart = false;
+    public bool isGameStart = false;
     
 
     void Start()
@@ -56,8 +56,8 @@ public class Ship : MonoBehaviour
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
 
-        //MasterAudio.PlaySound("water_slow 1");
-        //MasterAudio.PlaySound("Froest_1");
+        MasterAudio.PlaySound("water_Slow");
+        MasterAudio.PlaySound("Froest_1");
     }
 
     void FixedUpdate()
@@ -81,13 +81,17 @@ public class Ship : MonoBehaviour
 
     public void CheckGameover()
     {
+        if(isGameOver) return;
+
         float _nowZ = transform.rotation.z;
-        float _ZAmount = new Vector3(0, 0, _nowZ).magnitude;  
-        
-        if( _ZAmount > 0.46f)
+        float _nowX = transform.rotation.x;
+        float _Amount = new Vector3(_nowX, 0, _nowZ).magnitude;
+
+        if (_Amount > 0.50f)
         {
-            StartCoroutine( GameOver() );
+            StartCoroutine(GameOver());
         }
+
 
     }
 
@@ -157,13 +161,20 @@ public class Ship : MonoBehaviour
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
 
-        
 
+        MasterAudio.StartPlaylist("BGM");
+        MasterAudio.PlaySound("water_Slow");
+        MasterAudio.PlaySound("Froest_1");
         UI_GameOver.SetActive(false);
         Cam_GameOver.SetActive(false);
         isGameStart = true;
         
         //UI_Main.SetActive(true);
+    }
+
+    public void GameOverForce()
+    {
+        StartCoroutine(GameOver());
     }
 
     [ContextMenu("GameOver")]

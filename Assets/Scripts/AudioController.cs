@@ -9,8 +9,6 @@ public class AudioController : MonoBehaviour
 {
     public Slider AudioSlider;
 
-    public List<PlaylistController> controllers = new List<PlaylistController>();
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +20,6 @@ public class AudioController : MonoBehaviour
         float vol = AudioSlider.value;
         MasterAudio.PlaylistMasterVolume = vol;
         MasterAudio.SetBusVolumeByName("3D", vol);
+        MasterAudio.SetBusVolumeByName("SFX", vol);
     }
 }
