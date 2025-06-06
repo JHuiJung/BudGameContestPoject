@@ -15049,7 +15049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  rotationSpeed: 100
+  rotationSpeed: 50
   acceleration: 2
   drag: 1.5
   swayAmount: 5
