@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Duck_Horn : MonoBehaviour
+public class Duck_Horn : DuckBase
 {
     public float Seach_Range = 3f;
     public float DashPower = 300f;
@@ -45,33 +45,8 @@ public class Duck_Horn : MonoBehaviour
         {
             isAttacked = true; // 여기서 바로 true로
             this.transform.LookAt(thisPos - dir.normalized);
-            Attack();
+            DuckEvent();
         }
-
-
-    }
-
-    void Attack()
-    {
-        Vector3 playerPos = _ship.gameObject.transform.position;
-        Vector3 thisPos = this.transform.position;
-        Vector3 dir = (playerPos - thisPos).normalized;
-
-        Vector3 targetVec = new Vector3(playerPos.x, thisPos.y, playerPos.z);
-
-        this.GetComponent<FloatingObj>().Dash(playerPos,DashTime);
-
-        //DOVirtual.DelayedCall(1.5f, () => { 
-
-
-
-        //});
-
-
-        //Vector3 dir = (playerPos - thisPos);
-        //dir.Normalize();
-
-        //this.GetComponent<Rigidbody>().AddForce(dir * DashPower, ForceMode.Impulse);
 
 
     }
@@ -88,5 +63,16 @@ public class Duck_Horn : MonoBehaviour
             * DashPower, ForceMode.Impulse);
         
 
+    }
+
+    public override void DuckEvent()
+    {
+        Vector3 playerPos = _ship.gameObject.transform.position;
+        Vector3 thisPos = this.transform.position;
+        Vector3 dir = (playerPos - thisPos).normalized;
+
+        Vector3 targetVec = new Vector3(playerPos.x, thisPos.y, playerPos.z);
+
+        this.GetComponent<FloatingObj>().Dash(playerPos, DashTime);
     }
 }
