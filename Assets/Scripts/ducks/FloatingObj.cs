@@ -14,7 +14,8 @@ public class FloatingObj : MonoBehaviour
     public float floatSpeed = 1.0f;       // 위아래 이동 속도
 
     [Header("Drift Settings")]
-    public float driftSpeed = 0.2f;       // Z축 방향으로 흘러가는 속도
+    public float driftZ = 1f;       // Z축 방향으로 흘러가는 속도
+    public float driftX = 0f;
 
     bool isWater = true;
     bool isStop = false;
@@ -24,9 +25,12 @@ public class FloatingObj : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 initialPosition;
-    private float driftZ = 0f;
+    //private float driftZ = 0f;
 
-    void Start()
+    public bool isNormal = true;
+
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         if (rb == null)
@@ -40,15 +44,47 @@ public class FloatingObj : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         initialPosition = transform.position;
-        driftZ = initialPosition.z;
     }
 
     private void FixedUpdate()
     {
-        HandleWaveSway();
+        if (isNormal)
+        {
+            HandleWaveSwayNormal();
+        }
+        else
+        {
+            HandleWaveSwayAbNormal();
+        }
     }
 
-    void HandleWaveSway()
+    void HandleWaveSwayAbNormal()
+    {
+        if (!isWater)
+            return;
+        if (isStop)
+            return;
+
+        swayTimer += Time.fixedDeltaTime * swaySpeed;
+        float swayX = Mathf.Sin(swayTimer) * swayAmount;
+
+        // 회전 (좌우 흔들림)
+        Quaternion swayRotation = Quaternion.Euler(swayX, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
+        rb.MoveRotation(swayRotation);
+
+        // Z축 이동 (천천히 흘러감)
+        float dZ = Time.fixedDeltaTime * driftZ;
+        float dX = Time.fixedDeltaTime * driftX;
+
+        Vector3 newPosition = new Vector3(
+            rb.position.x + dX,
+            rb.position.y,
+            rb.position.z + dZ
+        );
+        rb.MovePosition(newPosition);
+    }
+
+    void HandleWaveSwayNormal()
     {
         if (!isWater)
             return;
@@ -67,11 +103,11 @@ public class FloatingObj : MonoBehaviour
         float floatY = Mathf.Sin(floatTimer) * floatHeight;
 
         // Z축 이동 (천천히 흘러감)
-        driftZ += Time.fixedDeltaTime * driftSpeed;
-        float dZ = Time.fixedDeltaTime * driftSpeed;
+        float dZ = Time.fixedDeltaTime * driftZ;
+        float dX = Time.fixedDeltaTime * driftX;
 
         Vector3 newPosition = new Vector3(
-            rb.position.x,
+            rb.position.x + dX,
             initialPosition.y + floatY,
             rb.position.z + dZ
         );
@@ -95,6 +131,12 @@ public class FloatingObj : MonoBehaviour
                 isStop = false;
             });
     }
+
+    public void ChangeDriftX(float _driftX)
+    {
+        driftX = _driftX;
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
