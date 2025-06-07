@@ -143,6 +143,7 @@ MonoBehaviour:
   floatSpeed: 1
   driftZ: 0.2
   driftX: 0
+  isNormal: 0
 --- !u!135 &8747784108523925724
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -217,3 +218,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0598dbd04b6897a4b9d6d714c219cd8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Xspeed: 0.2
+  _YForce: 2

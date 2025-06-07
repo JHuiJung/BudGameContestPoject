@@ -144,6 +144,7 @@ MonoBehaviour:
   floatSpeed: 0.8
   driftZ: 0.5
   driftX: 0
+  isNormal: 1
 --- !u!114 &3543874198574873770
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -142,6 +142,7 @@ MonoBehaviour:
   floatSpeed: 0.9
   driftZ: 0.2
   driftX: 0
+  isNormal: 0
 --- !u!114 &3848434107378475150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,3 +217,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59fc0f8a01aeace42a200694e6a6dac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Xspeed: 0.2
+  _YForce: 3.5

@@ -168,7 +168,23 @@ public class Ship : MonoBehaviour
         UI_GameOver.SetActive(false);
         Cam_GameOver.SetActive(false);
         isGameStart = true;
-        
+
+        //오리들 다 없애기
+
+        DuckBase[] ducks = FindObjectsOfType<DuckBase>();
+
+        foreach (DuckBase duck in ducks)
+        {
+            Destroy(duck.gameObject);
+        }
+
+        DuckSpawner[] duckSpawners = FindObjectsOfType<DuckSpawner>();
+
+        foreach(DuckSpawner spawners in duckSpawners)
+        {
+            spawners.ResetSpawner();
+        }
+
         //UI_Main.SetActive(true);
     }
 
