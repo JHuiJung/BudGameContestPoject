@@ -245,9 +245,9 @@ MonoBehaviour:
   obj_Duck_Origin: {fileID: 5692612097710875151}
   obj_Duck_Goose: {fileID: 8995346727656080366}
   obj_Duck_Gold: {fileID: 2019039017300658880}
-  weight_Duck_Origin: 30
-  weight_Duck_Goose: 10
-  weight_Duck_Gold: 1
+  weight_Duck_Origin: 65
+  weight_Duck_Goose: 32
+  weight_Duck_Gold: 3
   _Xspeed: 0.2
 --- !u!135 &5746897223302709758
 SphereCollider:
