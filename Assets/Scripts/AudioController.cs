@@ -21,5 +21,11 @@ public class AudioController : MonoBehaviour
         MasterAudio.PlaylistMasterVolume = vol;
         MasterAudio.SetBusVolumeByName("3D", vol);
         MasterAudio.SetBusVolumeByName("SFX", vol);
+        MasterAudio.SetBusVolumeByName("Stan", vol);
+    }
+
+    public void PlaySFX(string sfxname)
+    {
+        MasterAudio.PlaySound(sfxname);
     }
 }

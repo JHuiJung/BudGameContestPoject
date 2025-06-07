@@ -185,6 +185,16 @@ public class Ship : MonoBehaviour
             spawners.ResetSpawner();
         }
 
+        // 스탠 목소리 초기화
+
+        StanSound[] stanSound = FindObjectsOfType<StanSound>();
+        MasterAudio.StopBus("Stan");
+
+        foreach (StanSound ss in stanSound)
+        {
+            ss.ResetSound();
+        }
+
         //UI_Main.SetActive(true);
     }
 

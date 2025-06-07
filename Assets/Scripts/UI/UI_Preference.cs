@@ -57,7 +57,7 @@ public class UI_Preference : MonoBehaviour
     public void BTN_Title()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Environment_Free");
+        SceneManager.LoadScene("GameMain");
     }
 
     public void BTN_Restart()
