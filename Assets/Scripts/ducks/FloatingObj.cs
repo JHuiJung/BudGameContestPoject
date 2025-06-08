@@ -124,8 +124,9 @@ public class FloatingObj : MonoBehaviour
     public void Dash(Vector3 targetVec, float time)
     {
         isStop= true;
+        Vector3 targetpos = new Vector3(targetVec.x, this.transform.position.y, targetVec.z);
 
-        transform.DOMove(targetVec, time).SetEase(Ease.InBack)
+        transform.DOMove(targetpos, time).SetEase(Ease.InBack)
             .OnComplete(() => {
 
                 isStop = false;
