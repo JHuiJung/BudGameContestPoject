@@ -102,7 +102,7 @@ public class Ship : MonoBehaviour
 
         // 가속 적용
         //Vector3 forwardMovement = transform.forward * moveInput * acceleration * Time.fixedDeltaTime;
-        Vector3 forwardMovement = transform.forward * 1f * acceleration * Time.fixedDeltaTime;
+        Vector3 forwardMovement = transform.forward * moveSpeed * acceleration * Time.fixedDeltaTime;
         velocity += forwardMovement;
 
         // 회전 적용
@@ -161,6 +161,7 @@ public class Ship : MonoBehaviour
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX;
 
+        moveSpeed = 1f;
 
         MasterAudio.StartPlaylist("BGM");
         MasterAudio.PlaySound("water_Slow");
@@ -195,6 +196,14 @@ public class Ship : MonoBehaviour
             ss.ResetSound();
         }
 
+        //엔딩 초기화
+        Ending[] ends = FindObjectsOfType<Ending>();
+
+        foreach (Ending ed in ends)
+        {
+            ed.ResetEnding();
+        }
+
         //UI_Main.SetActive(true);
     }
 
@@ -222,6 +231,10 @@ public class Ship : MonoBehaviour
         UI_GameOver.SetActive(true);
     }
 
+    public void ChangeSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
 
     public void GameEnd()
     {

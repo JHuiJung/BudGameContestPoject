@@ -34,6 +34,10 @@ public class Ending : MonoBehaviour
         
         
     }
+    public void ResetEnding()
+    {
+        isCheck=false;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
