@@ -39,6 +39,7 @@ public class Ship : MonoBehaviour
     private WindSystem windSystem;
 
     public bool isGameStart = false;
+    public bool isDebugMode = false;
     
 
     void Start()
@@ -58,6 +59,7 @@ public class Ship : MonoBehaviour
 
         MasterAudio.PlaySound("water_Slow");
         MasterAudio.PlaySound("Froest_1");
+
     }
 
     void FixedUpdate()
@@ -89,6 +91,8 @@ public class Ship : MonoBehaviour
 
         if (_Amount > 0.50f)
         {
+            if (isDebugMode)
+                return;
             StartCoroutine(GameOver());
         }
 
@@ -209,6 +213,8 @@ public class Ship : MonoBehaviour
 
     public void GameOverForce()
     {
+        if (isDebugMode)
+            return;
         StartCoroutine(GameOver());
     }
 

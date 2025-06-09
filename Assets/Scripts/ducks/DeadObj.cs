@@ -13,7 +13,14 @@ public class DeadObj : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+
+            
+
             Ship _ship = collision.gameObject.GetComponent<Ship>();
+
+            if (_ship.isDebugMode)
+                return;
+
             StartCoroutine(_ship.GameOver());
 
             if (useForce)
